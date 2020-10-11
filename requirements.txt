@@ -1,0 +1,5 @@
+azure-functions
+Pillow
+numpy
+opencv-python
+grpcio
