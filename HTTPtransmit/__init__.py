@@ -55,6 +55,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
             #post processing
             img_fin = post_processing(img_np,PAFs,heatmaps)
+            MIMEType = 'image/jpeg'
+            return func.HttpResponse(body=img_fin,status_code=200,mimetype=MIMEType)
 
         else:
             return func.HttpResponse(f'no image files',status_code=400)
@@ -71,4 +73,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 
     
-    return func.HttpResponse(status_code=200)
+    

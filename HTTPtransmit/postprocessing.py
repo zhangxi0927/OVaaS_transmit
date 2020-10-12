@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from .preprocessing import *
 from PIL import Image
+from pose_extractor import extract_poses
 
 # TODO
 
@@ -51,10 +52,17 @@ class post_processing():
         return img
 
 # test
+if __name__ == "__main__":
 
-PAFs = np.random.random([1,38,32,57])
-heatmaps = np.random.random([1,19,32,57])
+    img = Image.open("../r3800.JPG")
+    img = resize(img)
+    img = np.array(img)
+    img = transpose(img)
 
-test = post_processing(img_np=img,PAFs=PAFs,heatmaps=heatmaps).main()
+    # img = np.random.random([1,3,256,456])
+    PAFs = np.random.random([1,38,32,57])
+    heatmaps = np.random.random([1,19,32,57])
 
-print(type(test))
+    test = post_processing(img_np=img,PAFs=PAFs,heatmaps=heatmaps).main()
+
+    print(type(test))
