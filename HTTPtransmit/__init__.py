@@ -5,6 +5,9 @@ import numpy as np
 from PIL import Image
 import io
 from .preprocessing import *   # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
+from .postprocessing import post_processing
+from grpc_client.client import run as client
+from time import time
 
 '''
 Post Analysis:
@@ -36,18 +39,27 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
         files = req.files[_NAME]
         if files:
+            #pre processing
             img_bin = files.read()      #get image_bin form request
-
             img = to_pil_image(img_bin)
-            img = resize(img) # w,h = 456,256
-            
+            img = resize(img) # w,h = 456,256        
             img_np = np.array(img)
             img_np = transpose(img_np) #hwc > bchw [1,3,256,456]
             # print(img_np.shape)
+
+            # send to infer model by grpc
+            start = time()
+            PAFs,heatmaps = client(img_np)
+            timecost = time()-start
+            logging.info(f"Inference complete,Takes{timecost}")
+
+            #post processing
+            img_fin = post_processing(img_np,PAFs,heatmaps)
+
         else:
             return func.HttpResponse(f'no image files',status_code=400)
     except Exception as e:
-        logging.info(f"Error:{e}\n\
+        logging.debug(f"Error:{e}\n\
                         url:{url}\n\
                         method:{method}\n\
                         params:{params}")
