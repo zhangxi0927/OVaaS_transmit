@@ -1,6 +1,8 @@
 # from pose_extractor import extract_poses
 import cv2
 import numpy as np
+from .preprocessing import *
+from PIL import Image
 
 # TODO
 
@@ -49,8 +51,6 @@ class post_processing():
         return img
 
 # test
-
-img = np.random.random([1,3,256,456])
 
 PAFs = np.random.random([1,38,32,57])
 heatmaps = np.random.random([1,19,32,57])
