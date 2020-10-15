@@ -10,6 +10,5 @@ message DataRequest {
   string img_nparray = 1;
 }
 message DataResponse{
-  string heatmaps = 1;
-  string PAFs     = 2;
+  string people = 1;
 }

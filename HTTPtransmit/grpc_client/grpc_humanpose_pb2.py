@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_nparray\x18\x01 \x01(\t\".\n\x0c\x44\x61taResponse\x12\x10\n\x08heatmaps\x18\x01 \x01(\t\x12\x0c\n\x04PAFs\x18\x02 \x01(\t2;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_nparray\x18\x01 \x01(\t\"\x1e\n\x0c\x44\x61taResponse\x12\x0e\n\x06people\x18\x01 \x01(\t2;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -66,15 +66,8 @@ _DATARESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='heatmaps', full_name='DataResponse.heatmaps', index=0,
+      name='people', full_name='DataResponse.people', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='PAFs', full_name='DataResponse.PAFs', index=1,
-      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -92,7 +85,7 @@ _DATARESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=60,
-  serialized_end=106,
+  serialized_end=90,
 )
 
 DESCRIPTOR.message_types_by_name['DataRequest'] = _DATAREQUEST
@@ -122,8 +115,8 @@ _TRANSMITDATA = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=108,
-  serialized_end=167,
+  serialized_start=92,
+  serialized_end=151,
   methods=[
   _descriptor.MethodDescriptor(
     name='DoTransmit',

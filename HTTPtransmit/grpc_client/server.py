@@ -10,7 +10,7 @@ import io
 # FIXIT: change Hyperparameters
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = 'localhost'
-_PORT = '8008'
+_PORT = '10004'
 _SHAPE = [1, 3, 256, 456]
 
 class TransmitData(pb2_grpc.TransmitDataServicer):
