@@ -7,6 +7,14 @@ import grpc_humanpose_pb2 as pb2
 import grpc_humanpose_pb2_grpc as pb2_grpc
 import numpy as np
 import io
+
+###2020/10/19
+from tensorflow import make_tensor_proto, make_ndarray
+from tensorflow_serving.apis import predict_pb2
+from tensorflow_serving.apis import prediction_service_pb2_grpc
+from pose_extractor import extract_poses
+##
+
 # FIXIT: change Hyperparameters
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = 'localhost'
@@ -22,6 +30,16 @@ class TransmitData(pb2_grpc.TransmitDataServicer):
             put img_array in humanpose_model.py
             and get return
         ''' 
+        ##2020/10/19
+        channel = grpc.insecure_channel("localhost" + ':' + 9000)
+        stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+        request = predict_pb2.PredictRequest()
+        request.model_spec.name = "human-pose-estimation"
+        request.inputs["data"].CopyFrom(make_tensor_proto(img_array, shape=(img_array.shape)))
+        result = stub.Predict(request, 10.0)
+        output_paf = make_ndarray(result.outputs["Mconv7_stage2_L1"])
+        people = extract_poses(heatmaps[:-1], output_paf[0], 4) 
+        ##
         # from humanpose import inference
         # people = inference(img_array)
 
