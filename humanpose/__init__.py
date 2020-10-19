@@ -49,12 +49,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
             # send to infer model by grpc
             start = time()
-            PAFs,heatmaps = client(img_np)
+            people = client(img_np)
             timecost = time()-start
             logging.info(f"Inference complete,Takes{timecost}")
 
             #post processing
-            img_fin = post_processing(img_np,PAFs,heatmaps)
+            img_fin = post_processing(img_np,people).res
             MIMEType = 'image/jpeg'
             return func.HttpResponse(body=img_fin,status_code=200,mimetype=MIMEType)
 
@@ -65,7 +65,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                         url:{url}\n\
                         method:{method}\n\
                         params:{params}")
-        return func.HttpResponse(f'Service Error',status_code=500)
+        return func.HttpResponse(f'Service Error.check the log.',status_code=500)
 
 
 

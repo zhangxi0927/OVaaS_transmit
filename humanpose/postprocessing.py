@@ -1,18 +1,13 @@
-# from pose_extractor import extract_poses
 import cv2
 import numpy as np
-from .preprocessing import *
+from preprocessing import *
 from PIL import Image
-from pose_extractor import extract_poses
-
-# TODO
 
 class post_processing():
-    def __init__(self,img_np,PAFs,heatmaps):
-        self.PAFs = PAFs
-        self.heatmaps = heatmaps
+    def __init__(self,img_np,people):
+        self.people = people
         self.img_np = img_np
-
+        self.res = self.main()
 
     def renderPeople(self,img, people, scaleFactor=4, threshold=0.5):
 
@@ -45,24 +40,22 @@ class post_processing():
     def main(self):
         img = self.img_np
         img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
+        people = self.people
 
-        people = extract_poses(self.heatmaps[:-1], self.PAFs, 4)
-        renderPeople(img, people, 4, 0.2)
+        self.renderPeople(img,people, 4, 0.2)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return img
 
-# test
+
 if __name__ == "__main__":
+    # for local test
+    # img = Image.open("./r3800.JPG")
+    # img = resize(img)
+    # img = np.array(img)
+    # img = transpose(img)
 
-    img = Image.open("../r3800.JPG")
-    img = resize(img)
-    img = np.array(img)
-    img = transpose(img)
+    # # img = np.random.random([1,3,256,456])
+    # people = slimlar.people()
 
-    # img = np.random.random([1,3,256,456])
-    PAFs = np.random.random([1,38,32,57])
-    heatmaps = np.random.random([1,19,32,57])
-
-    test = post_processing(img_np=img,PAFs=PAFs,heatmaps=heatmaps).main()
-
-    print(type(test))
+    # test = post_processing(img_np=img,people=people)
+    # img = post_processing(img_np=img,people=people).res

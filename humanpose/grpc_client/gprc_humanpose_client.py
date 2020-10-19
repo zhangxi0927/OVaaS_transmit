@@ -5,7 +5,7 @@ import numpy as np
 #TODO Fix hyperparameters
 _HOST = 'localhost'
 _PORT = '8008'
-_PATH = 'image/test.jpg'
+# _PATH = 'image/test.jpg'
 
 def run(img:np.arrays): #[BCHW], shape [1,3,256,456]
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)
@@ -14,13 +14,12 @@ def run(img:np.arrays): #[BCHW], shape [1,3,256,456]
 
     try:
         response = client.DoTransmit(pb2.DataRequest(img_nparray=img))
-        PAFs = response.PAFs
-        heatmaps = response.heatmaps
+        
+        people = response.people
     except:
         # TODO add error log
-        PAFs = None
-        heatmaps = None
-    return PAFs,heatmaps
+        people = None
+    return people
 
 # here maybe need fix
 if __name__ == '__main__':

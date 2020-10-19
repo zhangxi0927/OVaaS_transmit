@@ -21,13 +21,12 @@ class TransmitData(pb2_grpc.TransmitDataServicer):
         TODO 
             put img_array in humanpose_model.py
             and get return
-        '''
-        # FIXIT
-        # PAFs     =
-        # heatmaps = 
+        ''' 
+        # from humanpose import inference
+        # people = inference(img_array)
 
 
-        return pb2.DataResponse(PAFs=PAFs,heatmaps=heatmaps)
+        return pb2.DataResponse(people = people)
 
 
 def serve():
