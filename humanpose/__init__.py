@@ -4,8 +4,8 @@ import azure.functions as func
 import numpy as np
 from PIL import Image
 import io
-from .preprocessing import *   # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
-from .postprocessing import post_processing
+from . import preprocessing
+from . import postprocessing
 from grpc_client.client import run as client
 from time import time
 
@@ -41,10 +41,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         if files:
             #pre processing
             img_bin = files.read()      #get image_bin form request
-            img = to_pil_image(img_bin)
-            img = resize(img) # w,h = 456,256        
+            img = preprocessing.to_pil_image(img_bin)
+            img = preprocessing.resize(img) # w,h = 456,256        
             img_np = np.array(img)
-            img_np = transpose(img_np) #hwc > bchw [1,3,256,456]
+            img_np = preprocessing.transpose(img_np) #hwc > bchw [1,3,256,456]
             # print(img_np.shape)
 
             # send to infer model by grpc
@@ -54,7 +54,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             logging.info(f"Inference complete,Takes{timecost}")
 
             #post processing
-            img_fin = post_processing(img_np,people).res
+            img_fin = postprocessing.post_processing(img_np,people).res
             MIMEType = 'image/jpeg'
             return func.HttpResponse(body=img_fin,status_code=200,mimetype=MIMEType)
 
