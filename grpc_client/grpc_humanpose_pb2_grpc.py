@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import grpc_humanpose_pb2 as grpc__humanpose__pb2
+from . import grpc_humanpose_pb2 as grpc__humanpose__pb2
 
 
 class TransmitDataStub(object):

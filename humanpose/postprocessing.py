@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from preprocessing import *
+from . import preprocessing as prep
 from PIL import Image
 
 class post_processing():
@@ -47,15 +47,15 @@ class post_processing():
         return img
 
 
-if __name__ == "__main__":
-    # for local test
-    # img = Image.open("./r3800.JPG")
-    # img = resize(img)
-    # img = np.array(img)
-    # img = transpose(img)
+# if __name__ == "__main__":
+#     # for local test
+#     # img = Image.open("./r3800.JPG")
+#     # img = resize(img)
+#     # img = np.array(img)
+#     # img = transpose(img)
 
-    # # img = np.random.random([1,3,256,456])
-    # people = slimlar.people()
+#     # # img = np.random.random([1,3,256,456])
+#     # people = slimlar.people()
 
-    # test = post_processing(img_np=img,people=people)
-    # img = post_processing(img_np=img,people=people).res
+#     # test = post_processing(img_np=img,people=people)
+#     # img = post_processing(img_np=img,people=people).res

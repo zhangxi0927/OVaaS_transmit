@@ -1,13 +1,13 @@
 import grpc
-import grpc_humanpose_pb2 as pb2
-import grpc_humanpose_pb2_grpc as pb2_grpc
+from . import grpc_humanpose_pb2 as pb2
+from . import grpc_humanpose_pb2_grpc as pb2_grpc
 import numpy as np
 #TODO Fix hyperparameters
-_HOST = 'localhost'
-_PORT = '8008'
+_HOST = 'ovaasbackservertest.japaneast.cloudapp.azure.com'
+_PORT = '10001'
 # _PATH = 'image/test.jpg'
 
-def run(img:np.arrays): #[BCHW], shape [1,3,256,456]
+def run(img:np.array): #[BCHW], shape [1,3,256,456]
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)
     client = pb2_grpc.TransmitDataStub(channel=conn)
     print(type(img))

@@ -4,9 +4,9 @@ import azure.functions as func
 import numpy as np
 from PIL import Image
 import io
-from .preprocessing import *   # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
-from .postprocessing import post_processing
-from grpc_client.client import run as client
+from . import preprocessing as prep  # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
+from . import postprocessing as posp
+from ..grpc_client.gprc_humanpose_client import run as client
 from time import time
 
 '''
@@ -40,11 +40,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         files = req.files[_NAME]
         if files:
             #pre processing
-            img_bin = files.read()      #get image_bin form request
-            img = to_pil_image(img_bin)
-            img = resize(img) # w,h = 456,256        
+            img_bin = prep.files.read()      #get image_bin form request
+            img = prep.to_pil_image(img_bin)
+            img = prep.resize(img) # w,h = 456,256        
             img_np = np.array(img)
-            img_np = transpose(img_np) #hwc > bchw [1,3,256,456]
+            img_np = prep.transpose(img_np) #hwc > bchw [1,3,256,456]
             # print(img_np.shape)
 
             # send to infer model by grpc
@@ -54,7 +54,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             logging.info(f"Inference complete,Takes{timecost}")
 
             #post processing
-            img_fin = post_processing(img_np,people).res
+            img_fin = posp.post_processing(img_np,people).res
             MIMEType = 'image/jpeg'
             return func.HttpResponse(body=img_fin,status_code=200,mimetype=MIMEType)
 

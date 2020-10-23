@@ -18,7 +18,7 @@ from pose_extractor import extract_poses
 # FIXIT: change Hyperparameters
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = 'localhost'
-_PORT = '10004'
+_PORT = '10001'
 _SHAPE = [1, 3, 256, 456]
 
 class TransmitData(pb2_grpc.TransmitDataServicer):
@@ -31,7 +31,7 @@ class TransmitData(pb2_grpc.TransmitDataServicer):
             and get return
         ''' 
         ##2020/10/19
-        channel = grpc.insecure_channel("localhost" + ':' + 9000)
+        channel = grpc.insecure_channel(_HOST + ':' + _PORT)
         stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
         request = predict_pb2.PredictRequest()
         request.model_spec.name = "human-pose-estimation"

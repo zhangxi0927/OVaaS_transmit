@@ -36,8 +36,8 @@ def transpose(data:np.array):
     r = data.transpose(new_shape)
     r = np.expand_dims(r, axis=0)
     return r
-if __name__ == "__main__":
-    pass
-    # a = Image.open('./r3800.JPG')
-    # a = encode(a)
-    # print(a)
+# if __name__ == "__main__":
+#     pass
+#     # a = Image.open('./r3800.JPG')
+#     # a = encode(a)
+#     # print(a)
