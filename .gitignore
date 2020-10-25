@@ -129,3 +129,4 @@ local.settings.json
 .python_packages
 
 .pylintrc
+request_slim.py

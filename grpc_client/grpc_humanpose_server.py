@@ -19,19 +19,15 @@ from pose_extractor import extract_poses
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _HOST = 'localhost'
 _PORT = '10001'
+_DOCKERPORT = '10002'
 _SHAPE = [1, 3, 256, 456]
 
 class TransmitData(pb2_grpc.TransmitDataServicer):
     def DoTransmit(self, request, context):
-        img_array = request.img_nparray #type:nparray
-        # print(pb2.DataResponse(result=img_array.upper()))
-        '''
-        TODO 
-            put img_array in humanpose_model.py
-            and get return
-        ''' 
+        img_array = np.fromstring(request.img_nparray).reshape(_SHAPE) #type:ndarray
+        
         ##2020/10/19
-        channel = grpc.insecure_channel(_HOST + ':' + _PORT)
+        channel = grpc.insecure_channel(_HOST + ':' + _DOCKERPORT)
         stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
         request = predict_pb2.PredictRequest()
         request.model_spec.name = "human-pose-estimation"
@@ -39,6 +35,7 @@ class TransmitData(pb2_grpc.TransmitDataServicer):
         result = stub.Predict(request, 10.0)
         output_paf = make_ndarray(result.outputs["Mconv7_stage2_L1"])
         people = extract_poses(heatmaps[:-1], output_paf[0], 4) 
+        
         ##
         # from humanpose import inference
         # people = inference(img_array)

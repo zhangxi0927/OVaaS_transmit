@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_nparray\x18\x01 \x01(\t\"\x1e\n\x0c\x44\x61taResponse\x12\x0e\n\x06people\x18\x01 \x01(\t2;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_nparray\x18\x01 \x01(\x0c\"\x1e\n\x0c\x44\x61taResponse\x12\x0e\n\x06people\x18\x01 \x01(\x0c\x32;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -35,8 +35,8 @@ _DATAREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='img_nparray', full_name='DataRequest.img_nparray', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -67,8 +67,8 @@ _DATARESPONSE = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='people', full_name='DataResponse.people', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),

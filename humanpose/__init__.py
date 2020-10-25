@@ -6,7 +6,7 @@ from PIL import Image
 import io
 from . import preprocessing as prep  # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
 from . import postprocessing as posp
-from ..grpc_client.gprc_humanpose_client import run as client
+from ..grpc_client.grpc_humanpose_client import run as client
 from time import time
 
 '''
@@ -40,19 +40,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         files = req.files[_NAME]
         if files:
             #pre processing
-            img_bin = prep.files.read()      #get image_bin form request
+            img_bin = files.read()      #get image_bin form request
             img = prep.to_pil_image(img_bin)
             img = prep.resize(img) # w,h = 456,256        
             img_np = np.array(img)
             img_np = prep.transpose(img_np) #hwc > bchw [1,3,256,456]
-            # print(img_np.shape)
 
-            # send to infer model by grpc
+            # send to model server by grpc
             start = time()
             people = client(img_np)
             timecost = time()-start
             logging.info(f"Inference complete,Takes{timecost}")
-
             #post processing
             img_fin = posp.post_processing(img_np,people).res
             MIMEType = 'image/jpeg'
@@ -61,7 +59,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             return func.HttpResponse(f'no image files',status_code=400)
     except Exception as e:
-        logging.debug(f"Error:{e}\n\
+        logging.error(f"Error:{e}\n\
                         url:{url}\n\
                         method:{method}\n\
                         params:{params}")
