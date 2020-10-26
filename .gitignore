@@ -130,3 +130,5 @@ local.settings.json
 
 .pylintrc
 request_slim.py
+
+resource/

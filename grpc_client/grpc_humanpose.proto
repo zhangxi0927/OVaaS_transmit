@@ -7,8 +7,9 @@ service TransmitData {
   rpc DoTransmit(DataRequest) returns (DataResponse){}
 }
 message DataRequest {
-  bytes img_nparray = 1;
+  bytes img_ndarray = 1;
 }
 message DataResponse{
   bytes people = 1;
+  bytes shape  = 2;
 }

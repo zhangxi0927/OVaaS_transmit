@@ -4,7 +4,7 @@ import azure.functions as func
 import numpy as np
 from PIL import Image
 import io
-from . import preprocessing as prep  # Custom modules need to be prefixed with dot.and should use form[]import .I do not kown why
+from . import preprocessing as prep 
 from . import postprocessing as posp
 from ..grpc_client.grpc_humanpose_client import run as client
 from time import time
@@ -49,6 +49,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             # send to model server by grpc
             start = time()
             people = client(img_np)
+            
+            if not people:
+                timecost = time()-start
+                logging.warning(f"Inference complete,But no person detected,Takes{timecost}")
+                return func.HttpResponse(f'No person detected',status_code=200)
+            
             timecost = time()-start
             logging.info(f"Inference complete,Takes{timecost}")
             #post processing

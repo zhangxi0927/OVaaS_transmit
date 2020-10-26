@@ -5,3 +5,5 @@ test
 .venv
 request_slim.py
 .pylintrc
+
+resource/

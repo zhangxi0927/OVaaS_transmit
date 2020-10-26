@@ -48,7 +48,7 @@ class post_processing():
 
 
 # if __name__ == "__main__":
-#     # for local test
+#     # for local debug
 #     # img = Image.open("./r3800.JPG")
 #     # img = resize(img)
 #     # img = np.array(img)

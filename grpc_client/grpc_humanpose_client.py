@@ -7,7 +7,6 @@ import traceback
 #TODO Fix hyperparameters
 _HOST = 'ovaasbackservertest.japaneast.cloudapp.azure.com'
 _PORT = '10001'
-# _PATH = 'image/test.jpg'
 
 def run(img:np.array): #[BCHW], shape [1,3,256,456]
     conn = grpc.insecure_channel(_HOST + ':' + _PORT)
@@ -15,20 +14,18 @@ def run(img:np.array): #[BCHW], shape [1,3,256,456]
 
     try:
         img = img.tostring() #encode ndarray
-        print(type(img))
         response = client.DoTransmit(pb2.DataRequest(img_nparray=img))
-        print(response)
-        print('flag')
-        people = response.people
+        people = np.fromstring(response.people)
+        shape  = np.fromstring(response.shape)
+        people = people.reshape(shape)
     except Exception as e:
-        # print(e)
-        # logging.error(f"{e}")
         logging.error(f'{traceback.format_exc()}')
 
         people = None
         
     return people
 
-# here maybe need fix
 if __name__ == '__main__':
-    data = run(_PATH)
+    # for local debug
+    img = np.random.rand(1,3,256,456)
+    data = run(img)

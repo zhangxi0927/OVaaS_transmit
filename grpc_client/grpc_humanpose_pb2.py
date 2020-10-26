@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_nparray\x18\x01 \x01(\x0c\"\x1e\n\x0c\x44\x61taResponse\x12\x0e\n\x06people\x18\x01 \x01(\x0c\x32;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x14grpc_humanpose.proto\"\"\n\x0b\x44\x61taRequest\x12\x13\n\x0bimg_ndarray\x18\x01 \x01(\x0c\"-\n\x0c\x44\x61taResponse\x12\x0e\n\x06people\x18\x01 \x01(\x0c\x12\r\n\x05shape\x18\x02 \x01(\x0c\x32;\n\x0cTransmitData\x12+\n\nDoTransmit\x12\x0c.DataRequest\x1a\r.DataResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -34,7 +34,7 @@ _DATAREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='img_nparray', full_name='DataRequest.img_nparray', index=0,
+      name='img_ndarray', full_name='DataRequest.img_ndarray', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -72,6 +72,13 @@ _DATARESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='shape', full_name='DataResponse.shape', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -85,7 +92,7 @@ _DATARESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=60,
-  serialized_end=90,
+  serialized_end=105,
 )
 
 DESCRIPTOR.message_types_by_name['DataRequest'] = _DATAREQUEST
@@ -115,8 +122,8 @@ _TRANSMITDATA = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=92,
-  serialized_end=151,
+  serialized_start=107,
+  serialized_end=166,
   methods=[
   _descriptor.MethodDescriptor(
     name='DoTransmit',
