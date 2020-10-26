@@ -9,19 +9,18 @@ _HOST = 'ovaasbackservertest.japaneast.cloudapp.azure.com'
 _PORT = '10001'
 
 def run(img:np.array): #[BCHW], shape [1,3,256,456]
-    conn = grpc.insecure_channel(_HOST + ':' + _PORT)
-    client = pb2_grpc.TransmitDataStub(channel=conn)
+    with grpc.insecure_channel(_HOST + ':' + _PORT) as channel:
+        client = pb2_grpc.TransmitDataStub(channel=channel)
 
-    try:
-        img = img.tostring() #encode ndarray
-        response = client.DoTransmit(pb2.DataRequest(img_nparray=img))
-        people = np.fromstring(response.people)
-        shape  = np.fromstring(response.shape)
-        people = people.reshape(shape)
-    except Exception as e:
-        logging.error(f'{traceback.format_exc()}')
-
-        people = None
+        try:
+            img = img.tostring() #encode ndarray
+            response = client.DoTransmit(pb2.DataRequest(img_ndarray=img))
+            people = np.fromstring(response.people)
+            shape  = np.fromstring(response.shape)
+            people = people.reshape(shape)
+        except Exception as e:
+            logging.error(f'{traceback.format_exc()}')
+            people = None
         
     return people
 
