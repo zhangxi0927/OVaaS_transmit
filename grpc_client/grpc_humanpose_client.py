@@ -5,7 +5,7 @@ import numpy as np
 import logging
 import traceback
 #TODO Fix hyperparameters
-_HOST = 'ovaasbackservertest.japaneast.cloudapp.azure.com'
+_HOST = '20.37.99.104'
 _PORT = '10001'
 
 def run(img:np.array): #[BCHW], shape [1,3,256,456]
