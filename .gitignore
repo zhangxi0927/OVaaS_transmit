@@ -129,3 +129,6 @@ local.settings.json
 .python_packages
 
 .pylintrc
+
+grpc_client/
+.vscode
