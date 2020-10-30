@@ -14,7 +14,7 @@ from tensorflow import make_tensor_proto, make_ndarray
 from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
 
-from pose_extractor import extract_poses
+from . import pose_extractor
 
 '''
 Post Analysis:
@@ -74,8 +74,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             logging.info(f"Inference complete,Takes{timecost}")
 
             # post processing
-            people = extract_poses(heatmaps[:-1], paf[0], 4)
+            people = pose_extractor.extract_poses(heatmaps[:-1], paf[0], 4)
             img_fin = posp.post_processing(img_np, people).res
+
             MIMEType = 'image/jpeg'
             return func.HttpResponse(body=img_fin, status_code=200, mimetype=MIMEType)
 
