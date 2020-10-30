@@ -5,6 +5,9 @@
       "samplingSettings": {
         "isEnabled": true,
         "excludedTypes": "Request"
+      },
+      "LogLevel": {
+        "Default": "Debug"
       }
     }
   },

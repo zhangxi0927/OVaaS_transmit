@@ -2,5 +2,5 @@ azure-functions
 Pillow
 grpcio==1.27.2
 futures==3.1.1
-opencv-python==4.4.0.44
+opencv-python==4.1.2.30
 tensorflow-serving-api==2.*
