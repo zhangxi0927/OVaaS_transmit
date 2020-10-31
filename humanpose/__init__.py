@@ -51,6 +51,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             img = prep.to_pil_image(img_bin)
             img = prep.resize(img)  # w,h = 456,256
             img_np = np.array(img)
+            img_np = np.float32(img_np)
             img_np = prep.transpose(img_np)  # hwc > bchw [1,3,256,456]
             # print(img_np.shape)
             
